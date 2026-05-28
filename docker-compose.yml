@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  php:
+    container_name: php
+    image: php
+    restart: always
+    build:
+      context: ./phpapp
+      dockerfile: Dockerfile
+      target: base
+    ports:
+      - "${PORT}:80"
+
+  nginx:
+    image: nginx
+    ports:
+      - "80:80"
+
+  client:
+    container_name: client
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+      target: base
+    command: php /var/www/html/client.php
+    depends_on:
+      - php
