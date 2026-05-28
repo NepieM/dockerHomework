@@ -11,6 +11,7 @@ services:
       target: base
     ports:
       - "${PORT}:80"
+    command: php -S 0.0.0.0:80 -t /var/www/html
 
   nginx:
     image: nginx
